@@ -5,7 +5,7 @@ const apiKey = 'AIzaSyAwxXTuPNHNn9KdnVDtVsqPl_3Ogl6U4c0';
 const origin = '수원역';
 const destination = '홍대입구역';
 
-const apiUrl = `https://maps.googleapis.com/maps/api/directions/json?origin=${origin}&destination=${destination}&mode=transit&key=${apiKey}`;
+const apiUrl = `https://maps.googleapis.com/maps/api/directions/json?origin=${origin}&destination=${destination}&mode=transit&key=${apiKey}&traffic_model=best_guess&alternatives=true&transit_routing_preference=fewer_transfers`;
 
 axios.get(apiUrl)
     .then(response => {
