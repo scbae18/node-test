@@ -11,10 +11,11 @@ axios.get(apiUrl)
     .then(response => {
         const routes = response.data.routes;
         if (routes.length > 0) {
-            // 각 경로의 간단한 총 소요 시간 출력
+            // 각 경로의 간단한 총 소요 시간 및 거리 출력
             routes.forEach((route, index) => {
                 const totalDuration = route.legs.reduce((acc, leg) => acc + leg.duration.value, 0);
-                console.log(`Route ${index + 1}: Total Duration: ${totalDuration / 60} minutes`);
+                const totalDistance = route.legs.reduce((acc, leg) => acc + leg.distance.value, 0);
+                console.log(`Route ${index + 1}: Total Duration: ${totalDuration / 60} minutes, Total Distance: ${totalDistance / 1000} km`);
             });
 
             // 사용자가 선택한 경로 번호 입력 받기
@@ -37,6 +38,8 @@ axios.get(apiUrl)
                         leg.steps.forEach((step, stepIndex) => {
                             console.log(`  Step ${stepIndex + 1}:`);
                             console.log(`  - Travel Mode: ${step.travel_mode}`);
+                            console.log(`  - Distance: ${step.distance.text}`);
+                            console.log(`  - Duration: ${step.duration.text}`);
                             if (step.transit_details) {
                                 console.log(`    - Transit Mode: ${step.transit_details.line.vehicle.type}`);
                                 console.log(`    - Transit Line: ${step.transit_details.line.short_name}`);
